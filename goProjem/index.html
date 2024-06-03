@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders Programı</title>
+</head>
+<body>
+    <h1>Ders Programı</h1>
+    <div id="schedule"></div>
+
+    <!-- AJAX isteği için jQuery kütüphanesini ekleyin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- AJAX isteği yapın -->
+    <script>
+        $(document).ready(function() {
+            $.get("http://example.com:8080/schedule", function(data, status) {
+                // AJAX isteği başarılıysa, ders programını ekrana yazdır
+                if (status === "success") {
+                    var scheduleHTML = "<ul>";
+                    data.forEach(function(schedule) {
+                        scheduleHTML += "<li>" + schedule.Day + ": " + schedule.StartTime + " - " + schedule.EndTime + "</li>";
+                    });
+                    scheduleHTML += "</ul>";
+                    $("#schedule").html(scheduleHTML);
+                } else {
+                    // AJAX isteği başarısız olursa, hata mesajını göster
+                    $("#schedule").html("Ders programı alınamadı.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
